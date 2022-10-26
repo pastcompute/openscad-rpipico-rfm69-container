@@ -1,4 +1,5 @@
 include <primitives.scad>
+include <pico.scad>
 
 enclosure_dim = [ 60, 36, 13];      // x, y, height of box bounding
 enclosure_corners = 4;              // corner radii
@@ -23,7 +24,7 @@ pico_ofs = [2, 3];
 enclosure_offset_pico = pico_ofs + [ pico_inset_x, 0];  
                                    // offset it so we can reach the USB power cord inside a hole
                                    // and clear the sides
-enclosure_standoff_pico = 12;       // for our board, we have it mounted upside down with the
+enclosure_standoff_pico = 12;      // for our board, we have it mounted upside down with the
                                    // still soldered  SWD pins, so leave space for these
 
 rfm_grip_t = 3;
@@ -77,5 +78,7 @@ module enclosure_floor() {
 
 enclosure_floor();
 
-
-        
+color("green")
+translate([-enclosure_offset_pico[0] + 3.5, -enclosure_offset_pico[1] - 1.5, enclosure_standoff_pico + enclosure_thickness])
+rotate([0,180,0])
+pico();
