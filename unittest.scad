@@ -20,3 +20,6 @@ baseplate_wall(3, 10, 30, 40, 5);
 
 translate([0, -50])
 triangularish_riser(12, 20, 6, 3);
+
+translate([0, -200])
+logo(20, 20);
