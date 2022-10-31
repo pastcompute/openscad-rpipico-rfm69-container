@@ -1,4 +1,4 @@
-# Enclsoure to support a Raspverry Pi Pico and a slot for an additional module
+# Enclosure to support a Raspberry Pi Pico with additional module slot
 
 Features:
 - base, with screwless risers to support the Pico board and a slot for additional module
