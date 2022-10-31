@@ -178,6 +178,8 @@ enclosure_floor()
 }
 
 if (!printables) {
+  rotate([0,0,180]) {
+    color("blue")
     enclosure_floor();
 
     color("green") translate([
@@ -187,6 +189,7 @@ if (!printables) {
         enclosure_thickness
     ]) rotate([ 0, 180, 0 ]) pico();
 
-    translate([ 0, 0, enclosure_thickness ]) color("red", alpha = 0.2)
+    translate([ 0, 0, enclosure_thickness ]) color("blue", alpha = 0.3)
         enclosure_lid();
+  }
 }
