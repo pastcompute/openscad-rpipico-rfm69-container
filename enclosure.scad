@@ -14,7 +14,7 @@ pico_dim = [ 51, 21 ];
 pico_splats = [for (y = [ 0, 11.4 ], x = [ 0, 47 ])[x, y] + [ pico_inset_x, pico_inset_y ]];
 // position of pico mounting holes relative to pico
 // 2mm in from x-ends, 4.8mm in from y ends
-pico_hole_r = 2.1 / 2 - print_margin / 2; // radii of pico mounting holes
+pico_hole_r = 2.1 / 2 - print_margin / 4; // radii of pico mounting holes - snug but not too snug
 
 standoff_floor_r = 3; // don make this too wide or it will interfere with the USB
 standoff_taper = 1;
@@ -23,7 +23,7 @@ pico_ofs = [ 2, 3 ];
 enclosure_offset_pico = pico_ofs + [ pico_inset_x, 0 ];
 // offset it so we can reach the USB power cord inside a hole
 // and clear the sides
-enclosure_standoff_pico = 12; // for our board, we have it mounted upside down with the
+enclosure_standoff_pico = 17; // for our board, we have it mounted upside down with the
                               // still soldered  SWD pins, so leave space for these
 
 rfm_grip_t = 3;
@@ -79,7 +79,7 @@ module enclosure_lid() {
     translate([ hbx - sqw / 2, b / 2 - ct - _comp1, ct - _comp1 ]) cube([ sqw, ct + _comp2, hbot + _comp2 ]);
 
     // Hole for the USB cable; even though it looks OK in the model, it is too low in practice
-    fudge = 2;
+    fudge = 1;
     uw = 12;
     uh = 6 + fudge;
     translate([ w / 2 - ct - _comp1, y1 - uw / 2, enclosure_standoff_pico - uh / 2 + fudge ]) cube([ ct + _comp2, uw, uh ]);
@@ -99,15 +99,15 @@ module enclosure_floor() {
     difference() {
       baseplate(ct, w, b, cr);
       // Make a slot to access the SWD pins
-      translate([ -w / 2, -b / 2 ]) { translate(pico_splats[0]) translate([ 2, 4.8, -_comp1 ]) cube([ 3, 7, ct + _comp2 ]); }
+      translate([ -w / 2, -b / 2 ]) { translate(pico_splats[0]) translate([ 2, 4.2, -_comp1 ]) cube([ 3, 9, ct + _comp2 ]); }
     }
 
-    // lip
-    translate([ 0, 0, ct ]) baseplate_wall(lip_thickness, lip_height, w - lip_inset, b - lip_inset, cr);
+    // lip. Make it slightly snugger on the side with the slits
+    translate([ 0, 0, ct ]) baseplate_wall(lip_thickness, lip_height, w - lip_inset, b - lip_inset + 0.2, cr);
 
     // pico standoffs
     lug_slice_usb_h = 5;
-    lug_slice_pins_h = 8;
+    lug_slice_pins_h = enclosure_standoff_pico; // go all the way through
     slice_x = 2;
     lug_height = 2;
     translate(enclosure_offset_pico + [ 0, 0, enclosure_thickness ]) translate([ -w / 2, -b / 2 ]) {
