@@ -79,9 +79,11 @@ module enclosure_lid() {
     translate([ hbx - sqw / 2, b / 2 - ct - _comp1, ct - _comp1 ]) cube([ sqw, ct + _comp2, hbot + _comp2 ]);
 
     // Hole for the USB cable; even though it looks OK in the model, it is too low in practice
+    // Needs to be fat enough for the fat plastic on most USB micro cables, either side
+    // We can then hang UART cables out the opposite
     fudge = 1;
-    uw = 12;
-    uh = 6 + fudge;
+    uw = 13;
+    uh = 16 + fudge;
     translate([ w / 2 - ct - _comp1, y1 - uw / 2, enclosure_standoff_pico - uh / 2 + fudge ]) cube([ ct + _comp2, uw, uh ]);
   }
 }
